@@ -12,6 +12,6 @@ import java.util.Locale;
 
 @Repository
 public interface ProductRepository extends  JpaRepository<Products,Long> {
-    Products save(ProductDto productDto);
+//    Products save(ProductDto productDto);
 
 }

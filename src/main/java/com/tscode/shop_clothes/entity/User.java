@@ -23,6 +23,7 @@ public class User {
     String password;
     @Column(nullable = false)
     String email;
+    String image;
     String phone;
     String address;
     Boolean active;

@@ -18,24 +18,24 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/product")
 public class ProductController {
-    @Autowired
-    ProductService productService;
+//    @Autowired
+//    ProductService productService;
 
     @Autowired
     ProductRepository productRepository;
 
-    @PostMapping("/add")
-    public ResponseEntity<StatusAPI<Products>> addProduct(@RequestBody ProductDto productDto) {
-        try {
-            productDto.setCode(CodeGenerator.generateRandomCode(5));
-            Products products = productService.save(productDto);
-            StatusAPI<Products> response = new StatusAPI<>(products, "thêm sản phẩm thành cônng", HttpStatus.OK);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            StatusAPI<Products> response = new StatusAPI<>(null, e.getMessage(), HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<StatusAPI<Products>> addProduct(@RequestBody ProductDto productDto) {
+//        try {
+//            productDto.setCode(CodeGenerator.generateRandomCode(5));
+//            Products products = productService.save(productDto);
+//            StatusAPI<Products> response = new StatusAPI<>(products, "thêm sản phẩm thành cônng", HttpStatus.OK);
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch (RuntimeException e) {
+//            StatusAPI<Products> response = new StatusAPI<>(null, e.getMessage(), HttpStatus.BAD_REQUEST);
+//            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 
     @GetMapping("/all")

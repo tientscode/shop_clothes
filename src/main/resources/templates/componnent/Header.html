@@ -3,23 +3,35 @@
         <!--    header desktop-->
         <div class="right-top-bar" style="margin-right: 150px">
             <a href="#">VN</a>
-            <a href="#">EN</a>
+            <a href="">EN</a>
             <a href="/login" th:text="${session.user != null ? session.user.name : 'My Account'}"></a>
             <a href="#">Help & FAQ</a>
         </div>
         <!--topbar-->
-        <div class="d-flex flex-box wrap-menu-desktop " style="top: 40px">
+        <div class="d-flex flex-box wrap-menu-desktop" style="top: 40px">
             <h1>TSCODE</h1>
-            <div class="menu-desktop">
+            <div class="menu-desktop d-flex justify-content-between w-100">
                 <ul class="main-menu">
                     <li><a class="nav-link" href="/home">Home</a></li>
-                    <li><a class="nav-link" href="">Shop</a></li>
+                    <li><a class="nav-link" href="" onclick="scrollToSection(event, 'product')">Shop</a></li>
                     <li><a class="nav-link" href="">Blog</a></li>
                     <li><a class="nav-link" href="">About</a></li>
                     <li><a class="nav-link" href="">Contact</a></li>
                 </ul>
+                <ul class="main-menu" style="margin-right: 30px">
+                    <li><a class="nav-link" href="">
+                        <i class='bx bxs-cart'></i>
+                    </a></li>
+                    <li class="position-relative">
+                        <a class="nav-link" href="">
+                            <i class='bx bx-bell'></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
+
     </header>
     <script>
         window.addEventListener('scroll', function () {
@@ -33,5 +45,10 @@
                 wrapMenuDesktop.style.backgroundColor = 'transparent'; // Khôi phục màu nền trong suốt
             }
         });
+
+        function scrollToSection(event, id) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+            document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+        }
     </script>
 </div>

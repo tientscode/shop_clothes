@@ -20,9 +20,12 @@ public class Products {
     String code;
     @Column(nullable = false)
     String name;
+    @Column(nullable = false)
+    String TargetCustomer;
+    Integer quantity;
     String image;
     Double price;
-    String size;
+    boolean active;
     @Column(nullable = false)
     String description;
     @ManyToMany

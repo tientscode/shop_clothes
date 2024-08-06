@@ -1,0 +1,176 @@
+body {
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/*.video-title {*/
+/*    display: -webkit-box;*/
+/*    -webkit-line-clamp: 2; !*giới hạn nội dung hiển thị trong 2 dòng.*!*/
+/*    -webkit-box-orient: vertical;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis; !* thêm dấu ba chấm nếu nội dung bị cắt ngắn.*!*/
+/*    word-wrap: break-word;*/
+/*}*/
+
+.hidden {
+    display: none;
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 54px;
+    background-color: #ffffff;
+    z-index: 1020;
+
+}
+
+
+.information {
+    position: fixed;
+    top: 15px;
+    margin-right: 70px;
+    right: 0;
+    width: 250px;
+    height: calc(100vh - 25px);
+    z-index: 1030;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px #606060;
+    display: none;
+}
+
+.information a {
+    color: #030303;
+}
+
+.category {
+    position: fixed;
+    height: 60px;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: 200px;
+    margin-top: 54px;
+    align-items: center;
+    background-color: #ffffff;
+    z-index: 1030;
+}
+
+/*#categories {*/
+/*    display: flex;*/
+/*    overflow-x: hidden;*/
+/*    flex-grow: 1;*/
+/*    scrollbar-width: none; */
+/*}*/
+/*#categories::-webkit-scrollbar {*/
+/*    display: none; */
+/*}*/
+
+
+.btn-rounder-button {
+    border: none;
+    border-radius: 50%;
+    background-color: initial;
+    cursor: pointer;
+    padding: 8px 8px;
+    /*transition: background-color 0.3s, */
+    /*border-radius 0.3s; */
+}
+
+.btn-rounder-button:hover {
+    background-color: #e5e5e5;
+    color: #606060;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    width: 220px;
+    height: calc(100% - 60px);
+    background-color: #f8f9fa;
+    overflow-y: auto;
+    z-index: 1010;
+    padding-top: 10px;
+}
+
+.sidebar li {
+    padding: 5px;
+    font-size: 14px;
+    font-family: Arial, serif;
+}
+
+.sidebar li .active-v {
+    background-color: #f2f2f2;
+}
+
+.content {
+    margin-top: 60px;
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #ddd;
+}
+
+.item-image-author img {
+
+    width: 36px;
+    height: 36px;
+}
+
+.item-logo img {
+    width: 64px;
+    height: 64px;
+    justify-content: center;
+    align-items: center;
+}
+
+/*create product*/
+.legitRipple {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#imageUpload {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+#storyCover {
+    width: 100%;
+    height: 0;
+    padding-bottom: 145%;
+    position: relative;
+    overflow: hidden;
+    background-size: contain;
+}
+
+#storyCover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
