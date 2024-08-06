@@ -1,0 +1,238 @@
+.vip {
+    height: 10000px;
+    overflow-y: auto;
+}
+
+
+/*header desktop*/
+.right-top-bar {
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-right: 150px;
+    height: 40px;
+}
+
+.right-top-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20px;
+    color: #b2b2b2;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+}
+
+.right-top-bar a:last-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.right-top-bar a:hover {
+    color: #6c7ae0;
+}
+
+
+/*topbar*/
+
+.wrap-menu-desktop {
+    position: fixed;
+    z-index: 1100;
+    background-color: transparent; /* Màu nền ban đầu là trong suốt */
+    width: 100%;
+    height: 84px;
+    top: 40px; /* Vị trí ban đầu */
+    left: 0;
+    transition: top 0.3s ease, background-color 0.3s ease; /* Thêm hiệu ứng chuyển động cho top và background-color */
+}
+
+.menu-desktop {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    margin-left: 150px;
+    height: 100%;
+}
+
+.main-menu {
+    list-style-type: none;
+    margin: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+}
+
+.main-menu li {
+    margin: 0 10px;
+}
+
+.main-menu li:hover {
+    color: #6c7ae0;
+}
+
+/*slider*/
+section {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.image-container {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 40px);
+    overflow: hidden;
+}
+
+.image-container .fs-4 {
+    color: #333333;
+    font-size: 6.5rem !important;
+}
+
+.image-container button:hover {
+    background-color: #222222;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/*banner*/
+.banner-container {
+    overflow: hidden; /* Đảm bảo các phần tử không tràn ra ngoài */
+    margin: 50px 0; /*top,right,bottom,left*/
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+
+.hover-content button {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hover-card:hover .hover-content button {
+    opacity: 1;
+}
+
+/*product*/
+.product {
+    margin: 5px 0;
+}
+
+.product h1 {
+    width: 100%;
+    font-size: 60px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+
+}
+
+/* From Uiverse.io by G4b413l */
+.product .card {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    box-shadow: 0 1px 13px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 120ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 0.5em;
+    padding-bottom: 3.4em;
+}
+
+.product .card::after {
+    content: "View";
+    position: absolute;
+    bottom: -30px;
+    background: #00AC7C;
+    color: #fff;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 80ms;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0;
+}
+
+
+.product .card .title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    left: 0.625em;
+    bottom: 1.875em;
+    font-weight: 400;
+    color: #000;
+}
+
+.product .card .price {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    left: 0.625em;
+    bottom: 0.625em;
+    color: #000;
+}
+
+.product .card:hover::after {
+    bottom: 0;
+    opacity: 1;
+}
+
+.product .card:active {
+    transform: scale(0.98);
+}
+
+/*.product .card:active::after {*/
+/*    content: "Added !";*/
+/*    height: 3.125em;*/
+/*}*/
+
+.text {
+    max-width: 55px;
+}
+
+.image {
+    background: rgb(241, 241, 241);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}

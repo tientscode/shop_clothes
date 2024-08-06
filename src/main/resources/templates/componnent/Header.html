@@ -1,0 +1,37 @@
+<div th:fragment="header">
+    <header class="bg-black">
+        <!--    header desktop-->
+        <div class="right-top-bar" style="margin-right: 150px">
+            <a href="#">VN</a>
+            <a href="#">EN</a>
+            <a href="/login" th:text="${session.user != null ? session.user.name : 'My Account'}"></a>
+            <a href="#">Help & FAQ</a>
+        </div>
+        <!--topbar-->
+        <div class="d-flex flex-box wrap-menu-desktop " style="top: 40px">
+            <h1>TSCODE</h1>
+            <div class="menu-desktop">
+                <ul class="main-menu">
+                    <li><a class="nav-link" href="/home">Home</a></li>
+                    <li><a class="nav-link" href="">Shop</a></li>
+                    <li><a class="nav-link" href="">Blog</a></li>
+                    <li><a class="nav-link" href="">About</a></li>
+                    <li><a class="nav-link" href="">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <script>
+        window.addEventListener('scroll', function () {
+            var wrapMenuDesktop = document.querySelector('.wrap-menu-desktop');
+
+            if (window.scrollY > 95) { // Bạn có thể điều chỉnh giá trị này theo yêu cầu của bạn
+                wrapMenuDesktop.style.top = '0'; // Đưa wrap-menu-desktop lên đầu trang
+                wrapMenuDesktop.style.backgroundColor = 'white'; // Đổi màu nền khi cuộn xuống
+            } else {
+                wrapMenuDesktop.style.top = '40px'; // Khôi phục vị trí ban đầu
+                wrapMenuDesktop.style.backgroundColor = 'transparent'; // Khôi phục màu nền trong suốt
+            }
+        });
+    </script>
+</div>

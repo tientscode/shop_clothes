@@ -1,0 +1,39 @@
+<div th:fragment="slider">
+    <section>
+        <div class="position-relative image-container">
+            <div class="position-absolute top-50 translate-middle text-white p-3"
+                 style="z-index: 1090; margin-left: 250px">
+                <span class="d-block fs-4 mb-2">SALE 90%</span>
+                <button class="btn rounded-pill btn-primary">Buy Now</button>
+            </div>
+            <img src="/image/slide-01.jpg" alt="Slide Image" class="slide active">
+            <img src="/image/slide-02.jpg" alt="Slide Image" class="slide">
+            <img src="/image/slide-03.jpg" alt="Slide Image" class="slide">
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentIndex = 0;
+            const slides = document.querySelectorAll(".slide");
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove("active");
+                    if (i === index) {
+                        slide.classList.add("active");
+                    }
+                });
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                showSlide(currentIndex);
+            }
+
+            showSlide(currentIndex);
+            setInterval(nextSlide, 5000);
+        });
+    </script>
+</div>
