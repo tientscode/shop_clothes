@@ -7,113 +7,131 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="row">
-        <div class="mb-3 text-center">
-            <h1> TẠO SẢN PHẨM MỚI </h1>
-        </div>
-       <form th:action="@{/dashboard/create}" method="post" th:object="${products}">
-           <div class="col-md-2 col-sm-4 text-center">
-               <div id="storyCover">
-                   <img id="imagePreview" alt="Image Preview" style="display: none;">
-               </div>
-               <label for="imageUpload" class="upload-btn btn btn-success legitRipple">Chọn Ảnh
-                   Bìa</label>
-               <input style="width: 125px" th:field="*{image}" type="file" id="imageUpload"
-                      required accept="image/png, image/jpg, image/jpeg">
-               <p class="text-muted font-italic">Hỗ trợ ảnh có đuôi .jpg, .png, .jpeg. Kích
-                   thước &lt;=500kb</p>
-           </div>
-           <div class="col-md-10 col-sm-8">
-               <div class="row">
-                   <div class="col-6">
-                       <label class="d-block font-weight-semibold" for="name">Tên sản phẩm</label>
-                       <input type="text" th:field="*{name}"
-                              placeholder="Tên sản phẩm" class="form-control"
-                              id="name">
-                   </div>
-                   <div class="col-6">
-                       <label class="d-block font-weight-semibold" for="KH">Khách hàng</label>
-                       <select id="KH" th:field="*{targetCustomer}" class="form-select" aria-label="Default select example">
-                           <option value="" selected>Chọn trạng thái</option>
-                           <option value="Male">Nam</option>
-                           <option value="Female">Nữ</option>
-                           <option value="All">ALL</option>
-                       </select>
-                   </div>
-               </div>
-
-               <div class="row">
-                   <div class="col-md-6">
-                       <div class="form-group">
-                           <label class="d-block font-weight-semibold" for="PriceStory">Giá
-                               bán</label>
-                           <input type="number"
-                                  placeholder="Giá đăng bán" class="form-control"
-                                  id="PriceStory" required>
-                       </div>
-                   </div>
-                   <div class="col-md-6 hidden">
-                       <div class="form-group">
-                           <label class="d-block font-weight-semibold" for="id">Giá
-                               bán</label>
-                           <input type="number"
-                                  placeholder="Giá đăng bán" class="form-control"
-                                  id="id">
-                       </div>
-                   </div>
-                   <div class="col-md-6">
-                       <div class="form-group">
-                           <label class="d-block font-weight-semibold" for="quantity">Số
-                               lượng</label>
-                           <input th:field="*{quantity}" type="number" class="form-control" placeholder="Số lượng" id="quantity" required>
-                       </div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-6">
-                       <div class="form-group">
-                           <label class="d-block font-weight-semibold" for="category">Thể Loại</label>
-                           <select th:field="*{categories}" id="category" class="form-select" aria-label="Default select example">
-                               <option value="" selected>Chọn thể loại</option>
-                               <option th:each="category : ${categories}" th:value="${category.id}"
-                                       th:text="${category.name}"></option>
-                           </select>
-                       </div>
-                   </div>
-
-                   <div class="col-md-6">
-                       <div class="form-group">
-                           <label class="d-block font-weight-semibold">Trạng thái
-                               truyện</label>
-                           <div class="custom-control custom-radio custom-control-inline">
-                               <input type="radio" id="trangthai1" th:field="*{active}" value="true" name="trangthai" class="custom-control-input">
-                               <label class="custom-control-label" for="trangthai1">Còn hàng</label>
-                           </div>
-
-                           <div class="custom-control custom-radio custom-control-inline">
-                               <input type="radio" id="trangthai2" th:field="*{active}" value="false" name="trangthai" class="custom-control-input">
-                               <label class="custom-control-label" for="trangthai2">Hết hàng</label>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="form-group">
-                       <label class="d-block font-weight-semibold" for="storyDescription">Mô tả sản phẩm</label>
-                       <textarea th:field="*{description}" style="height: 120px"
-                                 class="form-control"
-                                 id="storyDescription"
-                                 placeholder="Hãy nói gì đó về truyện..."></textarea>
-                   </div>
-               </div>
-           </div>
-           <button type="submit">Create</button>
-       </form>
-        <!--        <div class="col-4"></div>-->
+    <!--title-->
+    <div class="mb-3 text-center">
+        <h1> TẠO SẢN PHẨM MỚI </h1>
     </div>
 
+    <!--    khỏi tạo sản phẩm-->
+    <form th:action="@{/dashboard/create}" method="post" th:object="${products}">
+        <div class="row">
+            <div class="col-md-2 col-sm-4 text-center">
+                <div id="storyCover">
+                    <img id="imagePreview" alt="Image Preview" style="display: none;" src="">
+                </div>
+                <label for="imageUpload" class="upload-btn btn btn-success legitRipple">Chọn Ảnh
+                    Bìa</label>
+                <input style="width: 125px" th:field="*{image}" type="file" id="imageUpload"
+                       required accept="image/png, image/jpg, image/jpeg">
+                <p class="text-muted font-italic">Hỗ trợ ảnh có đuôi .jpg, .png, .jpeg. Kích
+                    thước &lt;=500kb</p>
+            </div>
+            <div class="col-md-10 col-sm-8">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="d-block font-weight-semibold" for="name">Tên sản phẩm</label>
+                        <input type="text" th:field="*{name}"
+                               placeholder="Tên sản phẩm" class="form-control"
+                               id="name">
+                    </div>
+                    <div class="col-6">
+                        <label class="d-block font-weight-semibold" for="KH">Khách hàng</label>
+                        <select id="KH" th:field="*{targetCustomer}" class="form-select"
+                                aria-label="Default select example">
+                            <option value="" selected>Chọn trạng thái</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                            <option value="All">ALL</option>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="d-block font-weight-semibold" for="PriceStory">Giá
+                                bán</label>
+                            <input type="number" th:field="*{price}"
+                                   placeholder="Giá đăng bán" class="form-control"
+                                   id="PriceStory" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="d-block font-weight-semibold" for="quantity">Số
+                                lượng</label>
+                            <input th:field="*{quantity}" type="number" class="form-control" placeholder="Số lượng"
+                                   id="quantity" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="d-block font-weight-semibold" for="category">Thể Loại</label>
+                            <select th:field="*{categories}" id="category" class="form-select"
+                                    aria-label="Default select example">
+                                <option value="" selected>Chọn thể loại</option>
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                    </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="d-block font-weight-semibold">Trạng thái
+                                truyện</label>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="trangthai1" th:field="*{active}" value="true" name="trangthai"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="trangthai1">Còn hàng</label>
+                            </div>
+
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="trangthai2" th:field="*{active}" value="false" name="trangthai"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="trangthai2">Hết hàng</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="d-block font-weight-semibold" for="storyDescription">Mô tả sản phẩm</label>
+                        <textarea th:field="*{description}" style="height: 120px"
+                                  class="form-control"
+                                  id="storyDescription"
+                                  placeholder="Hãy nói gì đó về truyện..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="rounded" type="submit">Create</button>
+    </form>
+
+    <!--  sản phẩm vừa thêm gần đây-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" style="width: 25%">Name</th>
+            <th scope="col" style="width: 25%">Giá bán</th>
+            <th scope="col" style="width: 25%">Ngày tạo</th>
+            <th scope="col" style="width: 20%">Giờ khởi tạo</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, iterStat : ${latestProducts}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.price}"></td>
+            <td th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#temporals.format(item.createdAt, 'HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
     <script>
         document.getElementById('imageUpload').addEventListener('change', function (e) {
             var reader = new FileReader();

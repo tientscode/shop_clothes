@@ -3,6 +3,8 @@ package com.tscode.shop_clothes.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -28,6 +30,8 @@ public class Products {
     boolean active;
     @Column(nullable = false)
     String description;
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
     @ManyToMany
     @JoinTable(
             name = "product_category",

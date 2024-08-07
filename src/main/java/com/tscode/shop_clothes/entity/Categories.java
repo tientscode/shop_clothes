@@ -23,4 +23,5 @@ public class Categories {
     String name;
     @ManyToMany(mappedBy = "categories")
     private Set<Products> products;
+
 }

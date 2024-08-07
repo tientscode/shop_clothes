@@ -1,6 +1,7 @@
 package com.tscode.shop_clothes.model.dto;
 
 
+import com.tscode.shop_clothes.entity.Categories;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
-    String code;
-    String name;
-    String description;
+    String sex;
+    String time;
+    String price;
+    Categories category;
 }

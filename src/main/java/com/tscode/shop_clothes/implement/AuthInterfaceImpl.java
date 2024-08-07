@@ -1,12 +1,11 @@
 package com.tscode.shop_clothes.implement;
 
-import com.tscode.shop_clothes.JpaRepository.RoleRepository;
-import com.tscode.shop_clothes.JpaRepository.UserRepository;
-import com.tscode.shop_clothes.entity.Role;
+import com.tscode.shop_clothes.Repository.RoleRepository;
+import com.tscode.shop_clothes.Repository.UserRepository;
 import com.tscode.shop_clothes.entity.User;
 import com.tscode.shop_clothes.model.dto.LoginDto;
 import com.tscode.shop_clothes.model.dto.SingupDto;
-import com.tscode.shop_clothes.sevice.AuthService;
+import com.tscode.shop_clothes.sevice.AuthInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class AuthInterfaceImpl implements AuthInterface {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;

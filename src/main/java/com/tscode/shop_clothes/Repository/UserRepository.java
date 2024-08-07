@@ -1,4 +1,4 @@
-package com.tscode.shop_clothes.JpaRepository;
+package com.tscode.shop_clothes.Repository;
 
 import com.tscode.shop_clothes.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{Product-layout}" xmlns:sec>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="product" class="product">
+
+        <form th:action="@{/product}" method="post" th:object="${productDto}">
+            <div class="d-flex gap-4" style="margin-left: 50px">
+                <div>
+                    <section aria-label="Default select example">
+                        <!--                    <label for="sex">Chọn Giới tính</label>-->
+                        <select th:field="*{sex}" id="sex" name="sort" class="form-select">
+                            <option value="" selected>Giới tính</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                            <option value="All">Tất cả</option>
+                        </select>
+                    </section>
+                </div>
+                <div>
+                    <section aria-label="Default select example">
+                        <!--                    <label for="time">Chọn mốc thời gian</label>-->
+                        <select th:field="*{time}" id="time" name="sort" class="form-select">
+                            <option value="" selected>Thời gian</option>
+                            <option value="New">Mới nhất</option>
+                            <option value="Old">Cũ nhất</option>
+                        </select>
+                    </section>
+                </div>
+                <div>
+                    <section aria-label="Default select example">
+                        <!--                    <label for="price">Chọn giá</label>-->
+                        <select th:field="*{price}" id="price" name="sort" class="form-select">
+                            <option value="" selected>mức giá</option>
+                            <option value="1">0 - 1tr</option>
+                            <option value="2">1 - 10tr</option>
+                            <option value="3">10 - 100tr</option>
+                            <option value="4">Cao nhất</option>
+                            <option value="5">Thấp nhất</option>
+                        </select>
+                    </section>
+                </div>
+                <div>
+                    <section aria-label="Default select example">
+                        <!--                    <label for="category">Chọn giá</label>-->
+                        <select th:field="*{category}" id="category" name="sort" class="form-select">
+                            <option value="" selected>Loại sản phẩm</option>
+                            <option th:each="categories :${category}" th:value="${categories.id}"
+                                    th:text="${categories.name}"></option>
+                        </select>
+                    </section>
+                </div>
+                <button type="submit"><i class='bx bx-search-alt-2'></i>Tìm kiếm</button>
+            </div>
+        </form>
+
+
+        <div class="row w-100" style="padding: 20px 50px">
+            <div class="col-xl-3 col-md-4" th:each="product :${products}">
+                <div class="card">
+                    <div class="image">
+                        <img th:src="'/image/products/'+${product.image}" alt="product">
+                    </div>
+                    <div style="margin-top: 20px">
+                        <span class="title name-title" th:text="${product.name}"></span>
+                        <span style="color: red" class="price" th:text="${product.price}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

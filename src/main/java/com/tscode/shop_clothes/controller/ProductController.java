@@ -1,28 +1,31 @@
 package com.tscode.shop_clothes.controller;
 
-import com.tscode.shop_clothes.JpaRepository.ProductRepository;
+import com.tscode.shop_clothes.Repository.CategoryRepository;
+import com.tscode.shop_clothes.Repository.ProductRepository;
+import com.tscode.shop_clothes.entity.Categories;
 import com.tscode.shop_clothes.entity.Products;
-import com.tscode.shop_clothes.model.Notification.StatusAPI;
 import com.tscode.shop_clothes.model.dto.ProductDto;
-import com.tscode.shop_clothes.sevice.CodeGenerator;
-import com.tscode.shop_clothes.sevice.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/product")
+@RequestMapping("/product")
 public class ProductController {
-//    @Autowired
-//    ProductService productService;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
 //    @PostMapping("/add")
 //    public ResponseEntity<StatusAPI<Products>> addProduct(@RequestBody ProductDto productDto) {
@@ -38,26 +41,86 @@ public class ProductController {
 //    }
 
 
-    @GetMapping("/all")
-    public ResponseEntity<StatusAPI<List<Products>>> getAllProducts(@RequestParam(required = false) String sort) {
-        try {
-            List<Products> products = productRepository.findAll();
-            String message;
-            if ("top".equals(sort)) {
-                products.sort((p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice()));
-                message = "Xếp theo giá giảm dần";
-            } else {
-                products.sort(Comparator.comparingDouble(Products::getPrice));
-                message = "Xếp theo giá tăng dần";
-            }
-            StatusAPI<List<Products>> response = new StatusAPI<>(products, message, HttpStatus.OK);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            StatusAPI<List<Products>> response = new StatusAPI<>(null, "Failed to retrieve products: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    @GetMapping("/all")
+//    public ResponseEntity<StatusAPI<List<Products>>> getAllProducts(@RequestParam(required = false) String sort) {
+//        try {
+//            List<Products> products = productRepository.findAll();
+//            String message;
+//            if ("top".equals(sort)) {
+//                products.sort((p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice()));
+//                message = "Xếp theo giá giảm dần";
+//            } else {
+//                products.sort(Comparator.comparingDouble(Products::getPrice));
+//                message = "Xếp theo giá tăng dần";
+//            }
+//            StatusAPI<List<Products>> response = new StatusAPI<>(products, message, HttpStatus.OK);
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch (Exception e) {
+//            StatusAPI<List<Products>> response = new StatusAPI<>(null, "Failed to retrieve products: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+
+    @GetMapping
+    public String getAllProducts(Model model) {
+        model.addAttribute("productDto", new ProductDto());
+        model.addAttribute("category", categoryRepository.findAll());
+        List<Products> products;
+        if (model.asMap().containsKey("products")) {
+            products = (List<Products>) model.asMap().get("products");
+        } else {
+            products = productRepository.findAll();
         }
+        model.addAttribute("products", products);
+        return "componnent/Product_Category";
     }
 
+    @PostMapping
+    public String addProduct(@ModelAttribute("productDto") ProductDto productDto, RedirectAttributes redirectAttributes) {
+        List<Products> products;
+
+        // Lấy danh sách sản phẩm theo thể loại
+        if (productDto.getCategory() != null) {
+            products = productRepository.findByCategory(productDto.getCategory());
+        } else {
+            products = productRepository.findAll();
+        }
+
+        // Kiểm tra và sắp xếp theo giá nếu trường giá không null
+        if (productDto.getPrice() != null) {
+            if ("4".equals(productDto.getPrice())) {
+                products.sort((p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice())); // Giá cao đến thấp
+            } else if ("5".equals(productDto.getPrice())) {
+                products.sort(Comparator.comparingDouble(Products::getPrice)); // Giá thấp đến cao
+            }
+        }
+
+        // Kiểm tra và sắp xếp theo thời gian nếu trường thời gian không null
+        if (productDto.getTime() != null) {
+            if ("New".equalsIgnoreCase(productDto.getTime())) {
+                products.sort((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt())); // Mới nhất trước
+            } else if ("Old".equalsIgnoreCase(productDto.getTime())) {
+                products.sort(Comparator.comparing(Products::getCreatedAt)); // Cũ nhất trước
+            }
+        }
+
+        // Kiểm tra và lọc theo giới tính nếu trường giới tính không null
+        if (productDto.getSex() != null) {
+            if ("male".equalsIgnoreCase(productDto.getSex())) {
+                products = products.stream()
+                        .filter(p -> "male".equalsIgnoreCase(p.getTargetCustomer()))
+                        .toList();
+            } else if ("female".equalsIgnoreCase(productDto.getSex())) {
+                products = products.stream()
+                        .filter(p -> "female".equalsIgnoreCase(p.getTargetCustomer()))
+                        .toList();
+            }
+        }
+
+        // Thêm danh sách sản phẩm vào model và chuyển hướng
+        redirectAttributes.addFlashAttribute("products", products);
+        return "redirect:/product";
+    }
 
 
 }

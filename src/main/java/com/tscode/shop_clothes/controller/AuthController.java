@@ -3,9 +3,7 @@ package com.tscode.shop_clothes.controller;
 
 import com.tscode.shop_clothes.entity.User;
 import com.tscode.shop_clothes.model.dto.LoginDto;
-import com.tscode.shop_clothes.model.Notification.StatusAPI;
-import com.tscode.shop_clothes.model.dto.SingupDto;
-import com.tscode.shop_clothes.sevice.AuthService;
+import com.tscode.shop_clothes.sevice.AuthInterface;
 import com.tscode.shop_clothes.sevice.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private AuthInterface authInterface;
     @Autowired
     SessionService sessionService;
 
@@ -58,7 +56,7 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@ModelAttribute("loginDto") LoginDto loginDto, Model model) {
         try {
-            User user = authService.login(loginDto);
+            User user = authInterface.login(loginDto);
             sessionService.set("user", user);
             return "redirect:/home";
         } catch (RuntimeException e) {

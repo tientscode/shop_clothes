@@ -3,6 +3,14 @@
     overflow-y: auto;
 }
 
+.name-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /*giới hạn nội dung hiển thị trong 2 dòng.*/
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* thêm dấu ba chấm nếu nội dung bị cắt ngắn.*/
+    word-wrap: break-word;
+}
 
 /*header desktop*/
 .right-top-bar {

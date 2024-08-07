@@ -7,8 +7,10 @@
                     <div class="image">
                         <img th:src="'/image/products/'+${product.image}" alt="product">
                     </div>
-                    <span class="title" th:text="${product.name}"></span>
-                    <span class="price" th:text="${product.price}"></span>
+                    <div style="margin-top: 20px">
+                        <span class="title name-title" th:text="${product.name}"></span>
+                        <span style="color: red" class="price" th:text="${product.price}"></span>
+                    </div>
                 </div>
             </div>
         </div>
