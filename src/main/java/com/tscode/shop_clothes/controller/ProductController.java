@@ -75,18 +75,20 @@ public class ProductController {
         return "componnent/Product_Category";
     }
 
+
     @PostMapping
-    public String addProduct(@ModelAttribute("productDto") ProductDto productDto, RedirectAttributes redirectAttributes) {
+    public String findProduct(@ModelAttribute("productDto") ProductDto productDto, RedirectAttributes redirectAttributes) {
         List<Products> products;
 
-        // Lấy danh sách sản phẩm theo thể loại
-        if (productDto.getCategory() != null) {
-            products = productRepository.findByCategory(productDto.getCategory());
-        } else {
+        System.out.println(productDto.getCategory());
+        if (productDto.getCategory() == null) {
             products = productRepository.findAll();
+
+        } else {
+            products = productRepository.findByCategory(productDto.getCategory());
         }
 
-        // Kiểm tra và sắp xếp theo giá nếu trường giá không null
+
         if (productDto.getPrice() != null) {
             if ("4".equals(productDto.getPrice())) {
                 products.sort((p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice())); // Giá cao đến thấp
@@ -95,7 +97,6 @@ public class ProductController {
             }
         }
 
-        // Kiểm tra và sắp xếp theo thời gian nếu trường thời gian không null
         if (productDto.getTime() != null) {
             if ("New".equalsIgnoreCase(productDto.getTime())) {
                 products.sort((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt())); // Mới nhất trước
@@ -104,7 +105,6 @@ public class ProductController {
             }
         }
 
-        // Kiểm tra và lọc theo giới tính nếu trường giới tính không null
         if (productDto.getSex() != null) {
             if ("male".equalsIgnoreCase(productDto.getSex())) {
                 products = products.stream()
@@ -116,8 +116,6 @@ public class ProductController {
                         .toList();
             }
         }
-
-        // Thêm danh sách sản phẩm vào model và chuyển hướng
         redirectAttributes.addFlashAttribute("products", products);
         return "redirect:/product";
     }

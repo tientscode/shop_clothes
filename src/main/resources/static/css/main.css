@@ -3,6 +3,12 @@
     overflow-y: auto;
 }
 
+.custom-select option {
+    height: auto; /* Đảm bảo các mục có chiều cao tự động */
+    max-height: 200px; /* Đảm bảo chiều cao tối đa */
+    overflow: hidden; /* Ẩn phần nội dung vượt quá chiều cao */
+}
+
 .name-title {
     display: -webkit-box;
     -webkit-line-clamp: 2; /*giới hạn nội dung hiển thị trong 2 dòng.*/
@@ -76,9 +82,12 @@
     display: flex;
     align-items: center;
 }
-.main-menu i{
-    font-size: 36px; !important;
+
+.main-menu i {
+    font-size: 36px;
+!important;
 }
+
 .main-menu li {
     margin: 0 10px;
 }
