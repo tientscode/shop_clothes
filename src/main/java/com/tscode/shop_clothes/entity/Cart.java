@@ -15,10 +15,14 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int customerId;
-    private int productId;
+    private long customerId;
+    private long productId;
     private int quantity;
-    private Long price;
+    private double price;
+    private String size;
+    private String color;
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+
 }

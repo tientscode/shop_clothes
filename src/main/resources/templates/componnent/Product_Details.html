@@ -14,34 +14,35 @@
                 <div class="container-fluid d-flex flex-column h-100 p-0">
                     <div class="row flex-grow-1 h-100">
                         <!-- Các ảnh chi tiết nhỏ hơn -->
-                        <div class="col-4 d-flex flex-column justify-content-between h-100 gap-2 px-5">
-                            <div class="ratio ratio-1x1 border  overflow-hidden">
-                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"
-                                     src="/image/slide-03.jpg" alt="Detail Image 1" onclick="changeMainImage(this)">
+                        <!--                        <div class="col-4 d-flex flex-column justify-content-between h-100 gap-2 px-5">-->
+                        <!--                            <div class="ratio ratio-1x1 border  overflow-hidden">-->
+                        <!--                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"-->
+                        <!--                                     src="/image/slide-03.jpg" alt="Detail Image 1" onclick="changeMainImage(this)">-->
 
-                            </div>
-                            <div class="ratio ratio-1x1 border  overflow-hidden">
-                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"
-                                     src="/image/slide-04.jpg" alt="Detail Image 2" onclick="changeMainImage(this)">
+                        <!--                            </div>-->
+                        <!--                            <div class="ratio ratio-1x1 border  overflow-hidden">-->
+                        <!--                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"-->
+                        <!--                                     src="/image/slide-04.jpg" alt="Detail Image 2" onclick="changeMainImage(this)">-->
 
-                            </div>
-                            <div class="ratio ratio-1x1 border overflow-hidden">
-                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"
-                                     src="/image/slide-05.jpg" alt="Detail Image 3" onclick="changeMainImage(this)">
+                        <!--                            </div>-->
+                        <!--                            <div class="ratio ratio-1x1 border overflow-hidden">-->
+                        <!--                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"-->
+                        <!--                                     src="/image/slide-05.jpg" alt="Detail Image 3" onclick="changeMainImage(this)">-->
 
-                            </div>
-                            <div class="ratio ratio-1x1 border overflow-hidden">
-                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"
-                                     src="/image/slide-06.jpg" alt="Detail Image 3" onclick="changeMainImage(this)">
+                        <!--                            </div>-->
+                        <!--                            <div class="ratio ratio-1x1 border overflow-hidden">-->
+                        <!--                                <img class="img-fluid w-100 h-100" style="object-fit: cover;cursor: pointer"-->
+                        <!--                                     src="/image/slide-06.jpg" alt="Detail Image 3" onclick="changeMainImage(this)">-->
 
-                            </div>
-                        </div>
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
                         <!-- Ảnh đại diện lớn -->
                         <div class="col-8 d-flex">
                             <div class="ratio ratio-4x3 overflow-hidden border">
                                 <img id="main-image" class="img-fluid"
                                      style="object-fit: cover; width: 100%; height: 100%;"
-                                     src="/image/products/prodcut-17.jpg" alt="Main Image">
+                                     th:src="'/image/products/'+${product.image}" alt="Main Image">
 
                             </div>
                         </div>
@@ -49,45 +50,54 @@
                 </div>
             </div>
             <!-- Cột trống hoặc nội dung khác -->
-            <div class="ps-3 col-6">
+            <form id="add-to-cart-form" class="ps-3 col-6">
                 <!-- Nội dung khác nếu cần -->
-                <h4 class="pb-1">tên sản phẩm</h4>
-                <span> <b>giá sản phẩm</b></span>
-                <p class="pt-3"> giới thiệu sản phẩm </p>
+                <input type="hidden" name="id" th:value="${product.id}"/>
+                <h4 class="pb-1 fw-bold" th:text="${product.name}"></h4>
+                <span class="fs-5 text-success"><b th:text="${product.price}"></b></span>
+                <p class="pt-3 text-muted" th:text="${product.description}"></p>
 
-
-                <div class="mt-5 mb-5 d-flex mx-auto gap-3 justify-content-center align-items-center w-100">
-
-                    <div style="width: 50px; text-align: center" class="my-auto">Size</div>
-                    <div style="width: 250px">
+                <div class="mt-5 mb-5 d-flex gap-3 justify-content-center align-items-center w-100">
+                    <div style="width: 60px; text-align: center;" class="fw-bold">Size</div>
+                    <div style="width: 250px;">
                         <section aria-label="Default select example">
-                            <select name="sort" class="form-select custom-select">
+                            <select name="size" class="form-select">
                                 <option value="" selected>Chọn Size</option>
                                 <option value="s">Size S</option>
-                                <option value="x">Size M</option>
+                                <option value="m">Size M</option>
                                 <option value="l">Size L</option>
-                                <option value="xl">Size Xl</option>
+                                <option value="xl">Size XL</option>
                                 <option value="xxl">Size XXL</option>
                             </select>
                         </section>
                     </div>
-                    <div style="width: 50px; text-align: center" class="my-auto">Color</div>
-                    <div style="width: 250px">
+                    <div style="width: 60px; text-align: center;" class="fw-bold">Color</div>
+                    <div style="width: 250px;">
                         <section aria-label="Default select example">
-                            <select name="sort" class="form-select custom-select">
-                                <option value="" selected>Chọn màu</option>
-                                <option value="red">Màu red</option>
-                                <option value="blue">Màu blue</option>
-                                <option value="White">Màu White</option>
-                                <option value="Grey">Màu Grey</option>
+                            <select name="color" class="form-select">
+                                <option value="" selected>Chọn Màu</option>
+                                <option value="red">Màu Đỏ</option>
+                                <option value="blue">Màu Xanh</option>
+                                <option value="white">Màu Trắng</option>
+                                <option value="grey">Màu Xám</option>
                             </select>
                         </section>
                     </div>
                 </div>
 
-                <button th:attr="ng-click=@{|cart.add(${product.id})|}"> Thêm vào giỏ hàng</button>
-                <button> Mua ngay</button>
-            </div>
+                <!-- Tùy chọn chọn số lượng -->
+                <div class="mt-4 d-flex justify-content-center align-items-center w-100">
+                    <div style="width: 100px; text-align: center;" class="fw-bold">Số lượng</div>
+                    <div style="width: 100px;">
+                        <input type="number" name="quantity" min="1" value="1" class="form-control text-center">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button onclick="submitForm('add')" type="submit" class="btn btn-primary px-4" th:disabled="${#authentication.name == 'anonymousUser'}">Thêm vào giỏ hàng
+                    </button>
+                    <button th:disabled="${#authentication.name == 'anonymousUser'}" type="submit" class="btn btn-danger px-4">Mua ngay</button>
+                </div>
+            </form>
 
         </div>
     </div>
@@ -106,6 +116,54 @@
             // Cập nhật nguồn của ảnh đại diện
             var mainImage = document.getElementById('main-image');
             mainImage.src = newSrc;
+        }
+
+        $(document).ready(function () {
+            $('#add-to-cart-form').submit(function (event) {
+                event.preventDefault(); // Ngăn không cho form submit bình thường
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(), // Lấy tất cả dữ liệu từ form
+                    success: function (response) {
+                        alert(response); // Hiển thị phản hồi từ server
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Lỗi:', error); // Xử lý lỗi nếu có
+                    }
+                });
+            });
+        });
+
+
+        // xử lý add giỏ hàng
+        function submitForm(action) {
+            const form = document.getElementById('add-to-cart-form');
+            const formData = new FormData(form);
+
+            let url = '/cart/add'; // Mặc định là thêm vào giỏ hàng
+
+            if (action === 'buy') {
+                url = '/buy'; // API khác nếu muốn
+            }
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => response.text())
+                .then(data => {
+                    // Hiển thị thông báo thành công
+                    showAlert('Đã thêm vào giỏ hàng', 'success');
+                })
+                .catch(error => {
+                    // Hiển thị thông báo lỗi
+                    showAlert('Thêm thất bại, thử lại sau', 'danger');
+                    console.error('Lỗi:', error);
+                });
         }
     </script>
 </div>

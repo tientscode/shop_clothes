@@ -1,8 +1,11 @@
 package com.tscode.shop_clothes.controller;
 
+import com.tscode.shop_clothes.Repository.CartRepository;
 import com.tscode.shop_clothes.Repository.ProductRepository;
 import com.tscode.shop_clothes.configuration.CustomUserDetails;
+import com.tscode.shop_clothes.entity.Cart;
 import com.tscode.shop_clothes.entity.Products;
+import com.tscode.shop_clothes.model.dto.OrderDto;
 import com.tscode.shop_clothes.sevice.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -23,20 +27,15 @@ public class HomeController {
 
     @Autowired
     SessionService sessionService;
+    @Autowired
+    CartRepository cartRepository;
 
     @GetMapping
-    public String home(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        int a = 1;
-        int b = --a;
-        System.out.println(b);
-        if (userDetails != null) {
-            sessionService.set("user", userDetails);
-        }
-//        System.out.println("token nè" + sessionService.get("token"));
-        List<Products> activeProducts = productRepository.findAll().stream()
-                .filter(Products::isActive)
-                .collect(Collectors.toList());
+    public String home(Model model) {
+        List<Products> activeProducts = productRepository.findAll().stream().filter(Products::isActive).collect(Collectors.toList());
         model.addAttribute("products", activeProducts);
+
+
         return "Homepage";
     }
 

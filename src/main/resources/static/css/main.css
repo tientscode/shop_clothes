@@ -271,8 +271,18 @@ section {
     border-radius: 8px;
     margin: 40px 0 0 0;
     position: fixed;
-    right: 125px;  /* Đặt vị trí bên phải */
+    right: 125px; /* Đặt vị trí bên phải */
     display: none;
     overflow-y: auto;
 }
+
+#cart {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+}
+
+
 

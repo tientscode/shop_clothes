@@ -25,23 +25,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/js/**","/cart/**","/home", "/dashboard/**","/css/**", "/image/**", "/product/**", "/register").permitAll()
-//                        .requestMatchers("/cart/**").authenticated()
+                        .requestMatchers("/js/**","/home", "/dashboard/**","/css/**", "/image/**", "/product/**", "/register").permitAll()
+                        .requestMatchers("/cart/**").authenticated()
 //                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .passwordParameter("password")
                         .usernameParameter("username")
+
                         .defaultSuccessUrl("/home", false)  /*fasle sẽ không quay lại trang trước nếu k có*/
                         .failureUrl("/login?login_failure")
                         .permitAll())
                 .httpBasic(Customizer.withDefaults())
                 /*gọi phương thức rememberMe có sẵn */
-//                .rememberMe(rememberMe -> rememberMe
-//                        .rememberMeParameter("remember-me")  /*đây là name của nút remember*/
-//                        .key("uniqueAndSecret")
-//                        .tokenValiditySeconds(86400))
+                .rememberMe(rememberMe -> rememberMe
+                        .rememberMeParameter("remember-me")  /*đây là name của nút remember*/
+                        .key("uniqueAndSecret")
+                        .tokenValiditySeconds(86400))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")

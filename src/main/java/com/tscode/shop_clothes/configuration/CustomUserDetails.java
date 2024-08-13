@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails extends User implements UserDetails {
 
     private final User user;
 
@@ -41,6 +41,7 @@ public class CustomUserDetails implements UserDetails {
     public String getPassword() {
         return user.getPassword();
     }
+
 
     @Override
     public String getUsername() {
@@ -72,8 +73,16 @@ public class CustomUserDetails implements UserDetails {
         return user.getName();
     }
 
+    public String getEmail() {
+        return user.getEmail();
+    }
+
     public String getImage() {
         return user.getImage();
+    }
+
+    public Long getId() {
+        return user.getId();
     }
 
     public String getPhone() {
