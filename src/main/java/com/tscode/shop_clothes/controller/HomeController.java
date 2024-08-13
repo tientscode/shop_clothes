@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/home")
@@ -24,11 +26,18 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        int a = 1;
+        int b = --a;
+        System.out.println(b);
         if (userDetails != null) {
             sessionService.set("user", userDetails);
         }
-        List<Products> products = productRepository.findAll();
-        model.addAttribute("products", products);
+//        System.out.println("token nè" + sessionService.get("token"));
+        List<Products> activeProducts = productRepository.findAll().stream()
+                .filter(Products::isActive)
+                .collect(Collectors.toList());
+        model.addAttribute("products", activeProducts);
         return "Homepage";
     }
+
 }

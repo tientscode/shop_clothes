@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{Dashboad}" xmlns:sec>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="mb-3 text-center">
+        <h1> QUẢN LÝ KHÁCH HÀNG </h1>
+    </div>
+
+    <div style="height: 450px">
+        <div class="d-flex mb-3 gap-3 align-items-stretch">
+            <input style="width: 200px" type="text" id="searchInput" class="form-control" placeholder="Search by name">
+            <button type="button" class="btn btn-primary" onclick="searchTable()">Search</button>
+        </div>
+
+        <div class="border h-100">
+            <div class="table-responsive h-100">
+                <table class="table table-bordered w-100" id="dataTable">
+                    <thead>
+                    <tr class="text-center" style="height: 50px;">
+                        <th style="width: 10%;">#</th>
+                        <th style="width: 20%;">Name</th>
+                        <th style="width: 20%;">Email</th>
+                        <th style="width: 20%;">Phone</th>
+                        <th style="width: 15%;">Active</th>
+                        <th style="width: 15%;">Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" style="height: 50px;" th:each="user : ${allUsers}">
+                        <form action="/dashboard/updateIdUser" method="post">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.name}">
+                            <td th:text="${user.phone}">
+                            <td th:text="${user.email}">
+                            <td>
+                                <input type="checkbox" th:checked="${user.active}" name="active"/>
+                            </td>
+                            <td>
+                                <input type="hidden" name="id" th:value="${user.id}"/>
+                                <button type="submit">Update</button>
+                            </td>
+                        </form>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function searchTable() {
+            // Lấy giá trị tìm kiếm
+            var input = document.getElementById("searchInput").value.toLowerCase();
+            var table = document.getElementById("dataTable");
+            var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            // Duyệt qua các hàng của bảng và ẩn hoặc hiện hàng dựa trên kết quả tìm kiếm
+            for (var i = 0; i < rows.length; i++) {
+                var nameCell = rows[i].getElementsByTagName("td")[1]; // Cột tên là cột thứ 2
+                if (nameCell) {
+                    var name = nameCell.textContent || nameCell.innerText;
+                    if (name.toLowerCase().indexOf(input) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+<!--    <script>-->
+<!--        function updateUser(userId) {-->
+<!--            const active = document.getElementById(`active_${userId}`).checked;-->
+
+<!--            const data = {-->
+<!--                id: userId,-->
+<!--                active: active-->
+<!--            };-->
+
+<!--            fetch('/dashboard/updateIdUser', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify(data)-->
+<!--            }).then(response => {-->
+<!--                if (response.ok) {-->
+<!--                    alert('Update thành công');-->
+<!--                } else {-->
+<!--                    alert('Có lỗi xảy ra khi cập nhật');-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+</div>
+</body>
+</html>

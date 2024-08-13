@@ -50,7 +50,8 @@
                         <!--                    <label for="category">Chọn giá</label>-->
                         <select th:field="*{category}" id="category" name="sort" class="form-select custom-select">
                             <option value="" selected>Loại sản phẩm</option>
-                            <option th:each="categories : ${category}" th:value="${categories.id}" th:text="${categories.name}"></option>
+                            <option th:each="categories : ${category}" th:value="${categories.id}"
+                                    th:text="${categories.name}"></option>
                         </select>
                     </section>
                 </div>
@@ -61,15 +62,17 @@
 
         <div class="row w-100" style="padding: 20px 50px">
             <div class="col-xl-3 col-md-4 mb-3" th:each="product :${products}">
-                <div class="card">
-                    <div class="image">
-                        <img th:src="'/image/products/'+${product.image}" alt="product">
+                <a th:href="@{'/product/details/' + ${#strings.replace(product.name.toLowerCase(), ' ', '-')}}">
+                    <div class="card">
+                        <div class="image">
+                            <img th:src="'/image/products/'+${product.image}" alt="product">
+                        </div>
+                        <div style="margin-top: 20px">
+                            <span class="title name-title" th:text="${product.name}"></span>
+                            <span style="color: red" class="price" th:text="${product.price}"></span>
+                        </div>
                     </div>
-                    <div style="margin-top: 20px">
-                        <span class="title name-title" th:text="${product.name}"></span>
-                        <span style="color: red" class="price" th:text="${product.price}"></span>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>

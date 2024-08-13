@@ -5,19 +5,91 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    #storyCover {
+        width: 100%;
+        height: 0;
+        padding-bottom: 145%;
+        position: relative;
+        overflow: hidden;
+        background-size: contain;
+    }
+
+    #storyCover img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    #imageUpload {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+</style>
 <body>
 <div layout:fragment="content">
-    <!--title-->
     <div class="mb-3 text-center">
-        <h1> TẠO SẢN PHẨM MỚI </h1>
+        <h1> QUẢN LÝ SẢN PHẨM </h1>
     </div>
 
-    <!--    khỏi tạo sản phẩm-->
-    <form th:action="@{/dashboard/updateIdProduct}" method="post" th:object="${products}">
+    <div style="height: 450px">
+        <div class="d-flex mb-3 gap-3 align-items-stretch">
+            <input style="width: 200px" type="text" id="searchInput" class="form-control" placeholder="Search by name">
+            <button type="button" class="btn btn-primary" onclick="searchTable()">Search</button>
+        </div>
+
+        <div class="h-100">
+            <div class="table-responsive h-100">
+                <table class="table table-bordered w-100" id="dataTable">
+                    <thead>
+                    <tr class="text-center" style="height: 50px;">
+                        <th style="width: 40%;">Name</th>
+                        <th style="width: 15%;">Price</th>
+                        <th style="width: 20%;">Quantity</th>
+                        <th style="width: 15%;">Date</th>
+                        <th style="width: 15%;">Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" style="height: 50px;" th:each="product : ${allProducts}">
+                        <form action="/dashboard/ProductManagement#detail" method="get">
+                            <td>
+                                <img th:src="'/image/products/'+${product.image}" alt="Product Image"
+                                     style="width:50px; height:50px; margin-right:10px;"/>
+                                <span th:text="${product.name}"></span>
+                            </td>
+
+                            <td th:text="${product.price}"></td>
+                            <td th:text="${product.quantity}"></td>
+                            <td th:text="${#temporals.format(product.createdAt, 'dd/MM/yyyy')}"></td>
+
+                            <td>
+                                <input type="hidden" name="id" th:value="${product.id}"/>
+                                <button type="submit">Chi Tiết</button>
+                            </td>
+                        </form>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <form id="detail" style="margin-top: 120px;border: 5px solid #000;" class="p-5" th:if="${clickProducts != null}"
+          th:action="@{/dashboard/updateIdProduct}" method="post"
+          th:object="${clickProducts}">
         <div class="row">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{createdAt}"/>
+            <input type="hidden" th:field="*{code}"/>
             <div class="col-md-2 col-sm-4 text-center">
                 <div id="storyCover">
-                    <img id="imagePreview" alt="Image Preview" style="display: none;" src="">
+                    <img id="imagePreview" th:src="'/image/products/'+${clickProducts.image}"
+                         alt="Image Preview">
                 </div>
                 <label for="imageUpload" class="upload-btn btn btn-success legitRipple">Chọn Ảnh
                     Bìa</label>
@@ -80,7 +152,8 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="d-block font-weight-semibold">Trạng thái</label>
+                            <label class="d-block font-weight-semibold">Trạng thái
+                                truyện</label>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="trangthai1" th:field="*{active}" value="true" name="trangthai"
                                        class="custom-control-input">
@@ -106,32 +179,30 @@
                 </div>
             </div>
         </div>
-        <button class="rounded" type="submit">Create</button>
+        <button class="rounded" type="submit">Update</button>
     </form>
-
-    <!--  sản phẩm vừa thêm gần đây-->
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col" style="width: 25%">Name</th>
-            <th scope="col" style="width: 25%">Giá bán</th>
-            <th scope="col" style="width: 25%">Ngày tạo</th>
-            <th scope="col" style="width: 20%">Giờ khởi tạo</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item, iterStat : ${latestProducts}">
-            <td th:text="${iterStat.index + 1}"></td>
-            <td th:text="${item.name}"></td>
-            <td th:text="${item.price}"></td>
-            <td th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}"></td>
-            <td th:text="${#temporals.format(item.createdAt, 'HH:mm:ss')}"></td>
-        </tr>
-        </tbody>
-    </table>
     <script>
+        function searchTable() {
+            // Lấy giá trị tìm kiếm
+            var input = document.getElementById("searchInput").value.toLowerCase();
+            var table = document.getElementById("dataTable");
+            var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            // Duyệt qua các hàng của bảng và ẩn hoặc hiện hàng dựa trên kết quả tìm kiếm
+            for (var i = 0; i < rows.length; i++) {
+                var nameCell = rows[i].getElementsByTagName("td")[0]; // Cột tên là cột thứ 2
+                if (nameCell) {
+                    var name = nameCell.textContent || nameCell.innerText;
+                    if (name.toLowerCase().indexOf(input) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+
         document.getElementById('imageUpload').addEventListener('change', function (e) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -150,7 +221,9 @@
                 imagePreview.style.display = 'none';
             }
         }
+
     </script>
+
 </div>
 </body>
 </html>

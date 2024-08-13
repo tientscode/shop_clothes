@@ -2,7 +2,6 @@ package com.tscode.shop_clothes.controller;
 
 import com.tscode.shop_clothes.Repository.CategoryRepository;
 import com.tscode.shop_clothes.Repository.ProductRepository;
-import com.tscode.shop_clothes.entity.Categories;
 import com.tscode.shop_clothes.entity.Products;
 import com.tscode.shop_clothes.model.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/product")
@@ -71,7 +69,11 @@ public class ProductController {
         } else {
             products = productRepository.findAll();
         }
-        model.addAttribute("products", products);
+
+        List<Products> activeProducts = products.stream()
+                .filter(Products::isActive)
+                .collect(Collectors.toList());
+        model.addAttribute("products", activeProducts);
         return "componnent/Product_Category";
     }
 
@@ -118,6 +120,18 @@ public class ProductController {
         }
         redirectAttributes.addFlashAttribute("products", products);
         return "redirect:/product";
+    }
+
+    @GetMapping("/details/{slug}")
+    public String getProductBySlug(@PathVariable("slug") String slug, Model model) {
+        // Chuyển đổi slug ngược lại thành tên sản phẩm (nếu cần)
+        String productName = slug.replace("-", " ");
+        Products product = productRepository.findByName(productName);
+        if (product == null) {
+            return "Error";
+        }
+        model.addAttribute("product", product);
+        return "componnent/Product_Details";
     }
 
 

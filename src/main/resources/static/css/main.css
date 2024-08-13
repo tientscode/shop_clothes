@@ -248,6 +248,7 @@ section {
     display: grid;
     place-items: center;
     overflow: hidden;
+    /*position: fixed;*/
 }
 
 .image img {
@@ -255,3 +256,23 @@ section {
     height: auto;
     object-fit: contain;
 }
+
+.flex-r-m {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cart {
+    width: 400px;
+    z-index: 1111;
+    height: calc(100vh - 100px);
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px #606060;
+    border-radius: 8px;
+    margin: 40px 0 0 0;
+    position: fixed;
+    right: 125px;  /* Đặt vị trí bên phải */
+    display: none;
+    overflow-y: auto;
+}
+

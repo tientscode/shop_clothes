@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public interface ProductRepository extends JpaRepository<Products, Long> {
 
+
     //    lấy 5 sản phẩm mới nhất
     default List<Products> getLatestProducts(List<Products> products) {
         return products.stream()
@@ -30,6 +31,7 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
 
     @Query("SELECT p FROM Products p JOIN p.categories c WHERE c = :category")
     List<Products> findByCategory(@Param("category") Categories category);
+    Products findByName(String name);
 
 
 }

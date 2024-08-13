@@ -14,15 +14,20 @@
                 <ul class="main-menu">
                     <li><a class="nav-link" href="/home">Home</a></li>
 
-<!--                    onclick="scrollToSection(event, 'product')"-->
-                    <li><a class="nav-link" href="/product" >Shop</a></li>
+                    <!--                    onclick="scrollToSection(event, 'product')"-->
+                    <li><a class="nav-link" href="/product">Shop</a></li>
                     <li><a class="nav-link" href="">Blog</a></li>
                     <li><a class="nav-link" href="">About</a></li>
                     <li><a class="nav-link" href="">Contact</a></li>
                 </ul>
                 <ul class="main-menu" style="margin-right: 30px">
-                    <li><a class="nav-link" href="">
+                    <li onclick="viewcart()"><a class="nav-link position-relative" href="">
                         <i class='bx bxs-cart'></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ cart.count }}
+</span>
+
+
                     </a></li>
                     <li class="position-relative">
                         <a class="nav-link" href="">
@@ -33,8 +38,43 @@
                 </ul>
             </div>
         </div>
-
     </header>
+
+    <!--    xem trước giỏ hang-->
+    <div class="ms-auto cart">
+        <table class="border w-100">
+            <thead>
+            <tr style="height: 50px" class="border gap-2 text-center justify-content-center">
+                <th style="width: 20%;">Sản phẩm</th>
+                <th style="width: 20%;">Đơn giá</th>
+                <th style="width: 20%;">Số lượng</th>
+                <th style="width: 20%;">Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in cart.items" class="text-center border">
+                <td>
+                    <img class="img-fluid w-100 h-100" style="object-fit: cover"
+                         ng-src="{{ '/image/products/' + item.image }}" alt="Product Image">
+                </td>
+                <td>{{item.price}}</td>
+                <td>
+                    <input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1"
+                           style="width: 50px">
+                </td>
+                <td>
+                    <span style="cursor: pointer" ng-click="cart.remove(item.id)">xóa</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Button positioned at the bottom of the containing div -->
+        <div class="position-absolute bottom-0 end-0 mb-3 me-3">
+            <button class="btn btn-primary"><a href="/cart" class="text-white text-decoration-none">Go to Cart</a>
+            </button>
+        </div>
+    </div>
+
     <script>
         window.addEventListener('scroll', function () {
             var wrapMenuDesktop = document.querySelector('.wrap-menu-desktop');

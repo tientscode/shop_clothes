@@ -3,6 +3,7 @@ package com.tscode.shop_clothes.configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,8 +25,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/home", "/css/**", "/image/**", "/product/**", "/register").permitAll()
-                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
+                        .requestMatchers("/js/**","/cart/**","/home", "/dashboard/**","/css/**", "/image/**", "/product/**", "/register").permitAll()
+//                        .requestMatchers("/cart/**").authenticated()
+//                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -46,6 +48,7 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID"))/*xóa cookie phiên tự động được tạo ra của web*/
                 .exceptionHandling(ex -> ex.accessDeniedPage("/UnAuthorized"));
+//                .exceptionHandling(ex -> ex.authenticationEntryPoint(new CustomAuthenticationEntryPoint())); // Thêm dòng này;
         http.csrf(AbstractHttpConfigurer::disable);/*đang tắt csrf*/
         http.cors(AbstractHttpConfigurer::disable);/*đang tắt cosd*/
 

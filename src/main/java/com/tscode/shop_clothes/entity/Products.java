@@ -39,4 +39,9 @@ public class Products {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Categories> categories;
+
+    public String toSlug(String name) {
+        return name.toLowerCase().replaceAll("[^a-z0-9]+", "-").replaceAll("-$", "");
+    }
+
 }
