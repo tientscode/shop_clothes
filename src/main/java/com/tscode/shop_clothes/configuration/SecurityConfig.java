@@ -25,15 +25,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/js/**","/home", "/dashboard/**","/css/**", "/image/**", "/product/**", "/register").permitAll()
+                        .requestMatchers("/js/**","/home","/css/**", "/image/**", "/product/**", "/register").permitAll()
                         .requestMatchers("/cart/**").authenticated()
-//                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
+                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .passwordParameter("password")
                         .usernameParameter("username")
-
                         .defaultSuccessUrl("/home", false)  /*fasle sẽ không quay lại trang trước nếu k có*/
                         .failureUrl("/login?login_failure")
                         .permitAll())

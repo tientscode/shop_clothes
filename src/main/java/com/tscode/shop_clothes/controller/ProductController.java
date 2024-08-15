@@ -2,6 +2,7 @@ package com.tscode.shop_clothes.controller;
 
 import com.tscode.shop_clothes.Repository.CategoryRepository;
 import com.tscode.shop_clothes.Repository.ProductRepository;
+import com.tscode.shop_clothes.entity.Categories;
 import com.tscode.shop_clothes.entity.Products;
 import com.tscode.shop_clothes.model.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -130,6 +132,9 @@ public class ProductController {
         if (product == null) {
             return "Error";
         }
+//        Set<Categories> categories = product.getCategories();
+//        List<Products> productsSameType = productRepository.findByCategory((Categories) categories);
+//        model.addAttribute("productsSameType", productsSameType);
         model.addAttribute("product", product);
         return "componnent/Product_Details";
     }

@@ -2,9 +2,11 @@ package com.tscode.shop_clothes.controller;
 
 
 import com.tscode.shop_clothes.Repository.CategoryRepository;
+import com.tscode.shop_clothes.Repository.OderSuccessfullyRepository;
 import com.tscode.shop_clothes.Repository.ProductRepository;
 import com.tscode.shop_clothes.Repository.UserRepository;
 import com.tscode.shop_clothes.entity.Categories;
+import com.tscode.shop_clothes.entity.OrderSuccessfully;
 import com.tscode.shop_clothes.entity.Products;
 import com.tscode.shop_clothes.entity.User;
 import com.tscode.shop_clothes.sevice.CodeGenerator;
@@ -32,6 +34,8 @@ public class DashBoardController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    OderSuccessfullyRepository oderRepository;
 
 
     @GetMapping
@@ -51,6 +55,7 @@ public class DashBoardController {
         if (products.getCreatedAt() == null) {
             products.setCreatedAt(LocalDateTime.now());
         }
+        products.setQtySold(0);
         productRepository.save(products);
         return "redirect:/dashboard";
     }
@@ -89,6 +94,22 @@ public class DashBoardController {
         model.addAttribute("allProducts", productRepository.findAll());
 
         return "dashboard/ProductManagement";
+    }
+
+    @GetMapping("/Order")
+    public String order(Model model) {
+        model.addAttribute("orders", oderRepository.findAll());
+        return "dashboard/OrderManagement";
+    }
+
+    @PostMapping("/Order/adCheck")
+    public String AdCheck(Model model,@RequestParam int id, @RequestParam(required = false) Boolean active) {
+        System.out.println(id);
+        System.out.println(active);
+        OrderSuccessfully order = oderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setAdCheck(active != null ? active : false);
+        oderRepository.save(order);
+        return "dashboard/OrderManagement";
     }
 
 

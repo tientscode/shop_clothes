@@ -3,6 +3,7 @@ package com.tscode.shop_clothes.Repository;
 
 import com.tscode.shop_clothes.entity.Categories;
 import com.tscode.shop_clothes.entity.Products;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,9 +29,12 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
                 .collect(Collectors.toList());
     }
 
+    @Query("SELECT p FROM Products p ORDER BY p.qtySold DESC")
+    List<Products> findTop4ByQtySold(Pageable pageable);
 
     @Query("SELECT p FROM Products p JOIN p.categories c WHERE c = :category")
     List<Products> findByCategory(@Param("category") Categories category);
+
     Products findByName(String name);
 
 

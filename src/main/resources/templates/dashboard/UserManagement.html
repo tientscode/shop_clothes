@@ -11,17 +11,19 @@
         <h1> QUẢN LÝ KHÁCH HÀNG </h1>
     </div>
 
-    <div style="height: 450px">
-        <div class="d-flex mb-3 gap-3 align-items-stretch">
-            <input style="width: 200px" type="text" id="searchInput" class="form-control" placeholder="Search by name">
+    <div style="height: 450px;">
+        <!-- Search Bar -->
+        <div class="d-flex mb-3 gap-3 align-items-center">
+            <input style="width: 200px;" type="text" id="searchInput" class="form-control" placeholder="Search by name">
             <button type="button" class="btn btn-primary" onclick="searchTable()">Search</button>
         </div>
 
-        <div class="border h-100">
+        <!-- Table Container -->
+        <div class="border rounded p-2 h-100">
             <div class="table-responsive h-100">
-                <table class="table table-bordered w-100" id="dataTable">
-                    <thead>
-                    <tr class="text-center" style="height: 50px;">
+                <table class="table table-bordered table-hover w-100" id="dataTable">
+                    <thead class="table-light">
+                    <tr class="text-center">
                         <th style="width: 10%;">#</th>
                         <th style="width: 20%;">Name</th>
                         <th style="width: 20%;">Email</th>
@@ -31,18 +33,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center" style="height: 50px;" th:each="user : ${allUsers}">
-                        <form action="/dashboard/updateIdUser" method="post">
-                            <td th:text="${user.id}"></td>
-                            <td th:text="${user.name}">
-                            <td th:text="${user.phone}">
-                            <td th:text="${user.email}">
-                            <td>
+                    <!-- Form outside the table -->
+                    <tr th:each="user : ${allUsers}">
+                        <form action="/dashboard/updateIdUser" method="post" class="m-0">
+                            <td class="text-center" th:text="${user.id}"></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phone}"></td>
+                            <td class="text-center">
                                 <input type="checkbox" th:checked="${user.active}" name="active"/>
                             </td>
-                            <td>
+                            <td class="text-center">
+
                                 <input type="hidden" name="id" th:value="${user.id}"/>
-                                <button type="submit">Update</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+
                             </td>
                         </form>
                     </tr>
@@ -50,8 +55,8 @@
                 </table>
             </div>
         </div>
-
     </div>
+
 
     <script>
         function searchTable() {
@@ -74,30 +79,30 @@
             }
         }
     </script>
-<!--    <script>-->
-<!--        function updateUser(userId) {-->
-<!--            const active = document.getElementById(`active_${userId}`).checked;-->
+    <!--    <script>-->
+    <!--        function updateUser(userId) {-->
+    <!--            const active = document.getElementById(`active_${userId}`).checked;-->
 
-<!--            const data = {-->
-<!--                id: userId,-->
-<!--                active: active-->
-<!--            };-->
+    <!--            const data = {-->
+    <!--                id: userId,-->
+    <!--                active: active-->
+    <!--            };-->
 
-<!--            fetch('/dashboard/updateIdUser', {-->
-<!--                method: 'POST',-->
-<!--                headers: {-->
-<!--                    'Content-Type': 'application/json'-->
-<!--                },-->
-<!--                body: JSON.stringify(data)-->
-<!--            }).then(response => {-->
-<!--                if (response.ok) {-->
-<!--                    alert('Update thành công');-->
-<!--                } else {-->
-<!--                    alert('Có lỗi xảy ra khi cập nhật');-->
-<!--                }-->
-<!--            });-->
-<!--        }-->
-<!--    </script>-->
+    <!--            fetch('/dashboard/updateIdUser', {-->
+    <!--                method: 'POST',-->
+    <!--                headers: {-->
+    <!--                    'Content-Type': 'application/json'-->
+    <!--                },-->
+    <!--                body: JSON.stringify(data)-->
+    <!--            }).then(response => {-->
+    <!--                if (response.ok) {-->
+    <!--                    alert('Update thành công');-->
+    <!--                } else {-->
+    <!--                    alert('Có lỗi xảy ra khi cập nhật');-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+    <!--    </script>-->
 </div>
 </body>
 </html>

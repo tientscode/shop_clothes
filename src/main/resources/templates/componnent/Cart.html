@@ -21,6 +21,8 @@
                     <tr>
                         <!--                        <th scope="col"><input type="checkbox" id="select-all"></th>-->
                         <th scope="col">Sản phẩm</th>
+                        <th scope="col">Màu sắc</th>
+                        <th scope="col">Size</th>
                         <th scope="col">Đơn giá</th>
                         <th scope="col">Số lượng</th>
                         <th scope="col">Giá tiền</th>
@@ -29,7 +31,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="product : ${listCart}">
-                        <td th:text="${product.name}"></td>
+                        <td class="d-flex align-items-center">
+                            <p th:text="${product.name}" class="mb-0 me-2"></p>
+                            <img class="img-fluid" th:src="'/image/products/'+${product.image}" alt="" style="max-width: 50px; height: auto;">
+                        </td>
+
+                        <td th:text="${product.cart.color}"></td>
+                        <td th:text="${product.cart.size}"></td>
                         <td th:text="${product.cart.price}"></td>
                         <td>
                             <input th:value="${product.cart.quantity}" type="number" min="1"

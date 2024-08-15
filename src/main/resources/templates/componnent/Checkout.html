@@ -11,30 +11,36 @@
     <div>
         <h1 class="text-center">Giỏ hàng của bạn</h1>
         <div class="row justify-content-center" style="margin: 0 50px">
-            <form class="border p-4 rounded shadow-sm" style="width: 500px">
+            <form method="post" action="/pay/submitOrder" class="border p-4 rounded shadow-sm" style="width: 500px">
                 <div class="mb-3">
                     <label for="address" class="form-label">Địa chỉ:</label>
-                    <input th:value="${checkoutDto.user.address}" type="text" class="form-control" id="address" placeholder="Nhập địa chỉ giao hàng" required>
+                    <input th:value="${checkoutDto.user.address}" type="text" class="form-control" id="address"
+                           placeholder="Nhập địa chỉ giao hàng" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Gmail:</label>
-                    <input th:value="${checkoutDto.user.email}" type="email" class="form-control" id="email" placeholder="Nhập email của bạn" required>
+                    <input th:value="${checkoutDto.user.email}" name="orderInfo" type="email" class="form-control"
+                           id="email"
+                           placeholder="Nhập email của bạn" required>
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Số Điện Thoại:</label>
-                    <input th:value="${checkoutDto.user.phone}"  type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                    <input th:value="${checkoutDto.user.phone}" type="text" class="form-control" id="phone"
+                           placeholder="Nhập số điện thoại">
                 </div>
-<!--                <div class="mb-3">-->
-<!--                    <label for="total" class="form-label">Tổng tiền đơn hàng:</label>-->
-<!--                    <input type="text" class="form-control" id="total" placeholder="Tổng tiền đơn hàng">-->
-<!--                </div>-->
-<!--                <div class="mb-3">-->
-<!--                    <label for="discount" class="form-label">Số tiền giảm giá:</label>-->
-<!--                    <input type="text" class="form-control" id="discount" placeholder="Số tiền giảm giá">-->
-<!--                </div>-->
+                <!--                <div class="mb-3">-->
+                <!--                    <label for="total" class="form-label">Tổng tiền đơn hàng:</label>-->
+                <!--                    <input type="text" class="form-control" id="total" placeholder="Tổng tiền đơn hàng">-->
+                <!--                </div>-->
+                <!--                <div class="mb-3">-->
+                <!--                    <label for="discount" class="form-label">Số tiền giảm giá:</label>-->
+                <!--                    <input type="text" class="form-control" id="discount" placeholder="Số tiền giảm giá">-->
+                <!--                </div>-->
                 <div class="mb-3">
                     <label for="finalTotal" class="form-label">Tổng tiền cần thanh toán:</label>
-                    <input th:value="${checkoutDto.total}+' VND'" type="text" class="form-control" id="finalTotal" placeholder="Tổng tiền cần thanh toán" required>
+                    <input th:value="${checkoutDto.total}" type="text" name="amount" class="form-control"
+                           id="finalTotal"
+                           placeholder="Tổng tiền cần thanh toán" required>
                 </div>
                 <div class="mb-4">
                     <label for="payment" class="form-label">Chọn hình thức thanh toán:</label>

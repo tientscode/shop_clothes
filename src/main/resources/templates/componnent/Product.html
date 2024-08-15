@@ -1,8 +1,24 @@
 <div th:fragment="product">
     <div id="product" class="product">
+        <h1>TOP 4 BESTSELLERS</h1>
+        <div class="row w-100" style="padding: 20px 50px">
+            <div class="col-xl-3 col-md-4 mb-4" th:each="product :${top4BestSellingProducts}">
+                <a th:href="@{'/product/details/' + ${#strings.replace(product.name.toLowerCase(), ' ', '-')}}">
+                    <div class="card">
+                        <div class="image">
+                            <img th:src="'/image/products/'+${product.image}" alt="product">
+                        </div>
+                        <div style="margin-top: 20px">
+                            <span class="title name-title" th:text="${product.name}"></span>
+                            <span style="color: red" class="price" th:text="${product.price}"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
         <h1>Product Overview</h1>
         <div class="row w-100" style="padding: 20px 50px">
-            <div class="col-xl-3 col-md-4" th:each="product :${products}">
+            <div class="col-xl-3 col-md-4 mb-4" th:each="product :${products}">
                 <a th:href="@{'/product/details/' + ${#strings.replace(product.name.toLowerCase(), ' ', '-')}}">
                     <div class="card">
                         <div class="image">

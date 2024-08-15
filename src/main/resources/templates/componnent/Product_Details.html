@@ -54,7 +54,12 @@
                 <!-- Nội dung khác nếu cần -->
                 <input type="hidden" name="id" th:value="${product.id}"/>
                 <h4 class="pb-1 fw-bold" th:text="${product.name}"></h4>
-                <span class="fs-5 text-success"><b th:text="${product.price}"></b></span>
+                <span class="fs-5 text-success">
+                      <b><s th:text="${#numbers.formatDecimal(product.price * 1.9, 1, 'POINT', 2, 'COMMA')}"></s></b><br>
+                    <b th:text="${product.price}"></b>
+
+</span>
+
                 <p class="pt-3 text-muted" th:text="${product.description}"></p>
 
                 <div class="mt-5 mb-5 d-flex gap-3 justify-content-center align-items-center w-100">
@@ -93,9 +98,12 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
-                    <button onclick="submitForm('add')" type="submit" class="btn btn-primary px-4" th:disabled="${#authentication.name == 'anonymousUser'}">Thêm vào giỏ hàng
+                    <button onclick="submitForm('add')" type="submit" class="btn btn-primary px-4"
+                            th:disabled="${#authentication.name == 'anonymousUser'}">Thêm vào giỏ hàng
                     </button>
-                    <button th:disabled="${#authentication.name == 'anonymousUser'}" type="submit" class="btn btn-danger px-4">Mua ngay</button>
+                    <button th:disabled="${#authentication.name == 'anonymousUser'}" type="submit"
+                            class="btn btn-danger px-4">Mua ngay
+                    </button>
                 </div>
             </form>
 
@@ -106,6 +114,21 @@
     </div>
     <div class="mt-5">
         <h1 class="text-center"> Các Sản Phẩm Cùng Loại</h1>
+        <!--        <div class="row w-100" style="padding: 20px 50px">-->
+        <!--            <div class="col-xl-3 col-md-4 mb-4" th:each="product :${productsSameType}">-->
+        <!--                <a th:href="@{'/product/details/' + ${#strings.replace(product.name.toLowerCase(), ' ', '-')}}">-->
+        <!--                    <div class="card">-->
+        <!--                        <div class="image">-->
+        <!--                            <img th:src="'/image/products/'+${product.image}" alt="product">-->
+        <!--                        </div>-->
+        <!--                        <div style="margin-top: 20px">-->
+        <!--                            <span class="title name-title" th:text="${product.name}"></span>-->
+        <!--                            <span style="color: red" class="price" th:text="${product.price}"></span>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 
     <script>

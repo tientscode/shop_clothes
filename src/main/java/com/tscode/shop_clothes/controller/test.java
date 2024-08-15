@@ -3,9 +3,11 @@ package com.tscode.shop_clothes.controller;
 
 import com.tscode.shop_clothes.Repository.CartRepository;
 import com.tscode.shop_clothes.Repository.ProductRepository;
+import com.tscode.shop_clothes.Repository.UserRepository;
 import com.tscode.shop_clothes.configuration.CustomUserDetails;
 import com.tscode.shop_clothes.entity.Cart;
 import com.tscode.shop_clothes.entity.Products;
+import com.tscode.shop_clothes.entity.User;
 import com.tscode.shop_clothes.model.dto.OrderDto;
 import com.tscode.shop_clothes.sevice.SessionService;
 import jakarta.persistence.Id;
@@ -27,10 +29,14 @@ public class test {
     private CartRepository cartRepository;
     @Autowired
     private SessionService sessionService;
+    @Autowired
+    private UserRepository userRepository;
 
     @ModelAttribute
     public void addAttributes(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
         if (userDetails != null) {
+            User user = userRepository.findById(userDetails.getId()).orElse(null);
+            model.addAttribute("user", user);
             sessionService.set("user", userDetails);
 
             List<Cart> listCart = cartRepository.findByCustomerId(userDetails.getId());

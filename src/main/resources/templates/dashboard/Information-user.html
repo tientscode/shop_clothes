@@ -3,7 +3,7 @@
         <div class="my-2 d-flex flex-row align-items-center gap-3">
             <div class="mx-2 item-image-author">
                 <img class="rounded-circle"
-                     th:src="${session.user != null && session.user.image != null ? '/image/' + session.user.image : '/image/slide-03.jpg'}"
+                     th:src="${session.user != null && session.user.image != null ? '/image/slide-03.jpg' + session.user.image : '/image/slide-03.jpg'}"
                      alt="Author Image">
             </div>
             <div>

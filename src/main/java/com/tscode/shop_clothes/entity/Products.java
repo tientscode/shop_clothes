@@ -25,6 +25,7 @@ public class Products {
     @Column(nullable = false)
     String TargetCustomer;
     Integer quantity;
+    Integer qtySold;
     String image;
     Double price;
     boolean active;
